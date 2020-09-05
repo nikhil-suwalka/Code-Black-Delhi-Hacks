@@ -31,6 +31,8 @@ def deleteSession(request):
         return False
 
 
+
+
 def createQuestion(que: str, session_id: int) -> int:
     q = Question.objects.create(session_id=Session.objects.filter(id=session_id).first(), question=que)
     return q.id
@@ -39,3 +41,7 @@ def createQuestion(que: str, session_id: int) -> int:
 def createOption(option_text: str, question_id: int, session_id: int) -> None:
     o = Option.objects.create(session_id=Session.objects.filter(id=session_id).first(),
                               question_id=Question.objects.filter(id=question_id).first(), option=option_text)
+
+from main_app import generate_questions
+def get_questions_list(text:str)->list:
+    return generate_questions.get_questions(text)

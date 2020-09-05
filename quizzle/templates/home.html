@@ -24,6 +24,7 @@
             vertical-align:middle;
             box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0);
             margin-right: 10px;
+            resize: none;
         }
         .textarea_small{
             background:#FFFFBE;
@@ -34,25 +35,58 @@
             line-height:1.5em;
             vertical-align: top;
             box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0);
+            resize: none;
         }
 
     </style>
+
 </head>
 
 <body>
     {% include 'navbar.html' %}
     <div style="margin-top: 20px; margin-left: 10px;">
         <div style="resize: none; display: inline;" >
-            <textarea class="textarea_main" id="textExample" style="border: 1px solid #BBB; color:#444" rows="10" cols="10"></textarea>
+            <textarea class="textarea_main" id="mainTextArea" style="border: 1px solid #BBB; color:#444" rows="10" cols="10"></textarea>
         </div>
         <div style="display: inline; margin-top: 0; margin-right: 10px" >
-            <textarea class="textarea_small" id="textExample" style="border: 1px solid #BBB; color:#444" rows="10" cols="10" disabled></textarea>
+            <textarea class="textarea_small" id="selectTextArea" style="border: 1px solid #BBB; color:#444" rows="10" cols="10"></textarea>
         </div>
         <div style="display: inline; margin-top: 0">
-            <button class="btn" style="background: #ffa200; color: black;text-transform: uppercase; font-weight: bold; vertical-align: top">Generate</button>
+            <button class="btn" style="background: #ffa200; color: black;text-transform: uppercase; font-weight: bold; vertical-align: top">Generate Questions</button>
 
         </div>
     </div>
+    <script>
+        var mySelection = function (element) {
+            let startPos = element.selectionStart;
+            let endPos = element.selectionEnd;
+            let selectedText = element.value.substring(startPos, endPos);
 
+            if(selectedText.length <= 0) {
+                return; // stop here if selection length is <= 0
+            }
+
+            // log the selection
+            document.getElementById("selectTextArea").value = selectedText;
+
+        };
+
+        var textAreaElements = document.querySelectorAll('.textarea_main');
+        [...textAreaElements].forEach(function(element) {
+            // register "mouseup" event for the mouse
+            element.addEventListener('mouseup', function(){
+                mySelection(element)
+            });
+
+            // register "keyup" event for the keyboard
+            element.addEventListener('keyup', function( event ) {
+                // assuming we need CTRL, SHIFT or CMD key to select text
+                // only listen for those keyup events
+                if(event.keyCode == 16 || event.keyCode == 17 || event.metaKey) {
+                    mySelection(element)
+                }
+            });
+        });
+    </script>
 </body>
 </html>

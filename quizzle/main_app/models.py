@@ -22,6 +22,7 @@ class Question(models.Model):
 class Option(models.Model):
     # option_id = models.IntegerField(blank=False, null=False, unique=True, primary_key=True)
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="question_link")
+    option = models.CharField(max_length=255, blank=False, null=False)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.option)

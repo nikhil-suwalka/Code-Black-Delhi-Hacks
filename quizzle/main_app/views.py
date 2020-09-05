@@ -30,4 +30,12 @@ def deleteSession(request):
     except:
         return False
 
-# def createQuestion(que: str)
+
+def createQuestion(que: str, session_id: int) -> int:
+    q = Question.objects.create(session_id=Session.objects.filter(id=session_id).first(), question=que)
+    return q.id
+
+
+def createOption(option_text: str, question_id: int, session_id: int) -> None:
+    o = Option.objects.create(session_id=Session.objects.filter(id=session_id).first(),
+                              question_id=Question.objects.filter(id=question_id).first(), option=option_text)

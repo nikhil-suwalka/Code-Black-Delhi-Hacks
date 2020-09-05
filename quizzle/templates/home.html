@@ -139,34 +139,19 @@
                         style="background: #ffa200; color: black;text-transform: uppercase; font-weight: bold; vertical-align: top; margin-bottom: 10px; float: right; margin-top: 10px">
                     Generate Questions
                 </button>
-                <div class="quotes__list" style="padding-top: 10px">
-                    <blockquote cite="https://www.huxley.net/bnw/four.html">
-                        <p>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and
-                            you’re pierced.</p>
-                        <footer>—Aldous Huxley, <cite>Brave New World</cite></footer>
-                    </blockquote>
-                </div>
-                <div class="quotes__list">
-                    <blockquote cite="https://www.huxley.net/bnw/four.html">
-                        <p>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and
-                            you’re pierced.</p>
-                        <footer>—Aldous Huxley, <cite>Brave New World</cite></footer>
-                    </blockquote>
-                </div>
-                <div class="quotes__list">
-                    <blockquote cite="https://www.huxley.net/bnw/four.html">
-                        <p>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and
-                            you’re pierced.</p>
-                        <footer>—Aldous Huxley, <cite>Brave New World</cite></footer>
-                    </blockquote>
-                </div>
-                <div class="quotes__list">
-                    <blockquote cite="https://www.huxley.net/bnw/four.html">
-                        <p>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and
-                            you’re pierced.</p>
-                        <footer>—Aldous Huxley, <cite>Brave New World</cite></footer>
-                    </blockquote>
-                </div>
+                {% for question in questions %}
+                    <div class="quotes__list">
+                        <blockquote >
+                            <p>{{ question.0 }}</p>
+                            <p>Answer:&nbsp;{{ question.1 }}</p>
+                            <ul>
+                                {% for option in questions.2 %}
+                                    <li>{{ option }}</li>
+                                {% endfor %}
+                            </ul>
+                        </blockquote>
+                    </div>
+                {% endfor %}
             </div>
 
         </div>

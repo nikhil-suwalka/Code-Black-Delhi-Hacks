@@ -11,7 +11,7 @@ class Session(models.Model):
 
 
 class Question(models.Model):
-    question_id = models.IntegerField(blank=False, null=False, unique=True, primary_key=True)
+    # question_id = models.IntegerField(blank=False, null=False, unique=True, primary_key=True)
     session_id = models.ForeignKey(Session, on_delete=models.CASCADE, related_name="session_link")
     question = models.CharField(max_length=255, blank=False, null=False)
 
@@ -20,8 +20,8 @@ class Question(models.Model):
 
 
 class Option(models.Model):
-    option_id = models.IntegerField(blank=False, null=False, unique=True, primary_key=True)
+    # option_id = models.IntegerField(blank=False, null=False, unique=True, primary_key=True)
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="question_link")
 
     def __str__(self):
-        return str(self.option_id)
+        return str(self.id)

@@ -11,7 +11,7 @@ def home_view(request):
     if request.session.get("session_id", False):
         print("Old session exists: ", request.session.get("session_id"))
 
-        return HttpResponse("You've old: " + str(request.session.get("session_id")))
+        return HttpResponse("You're old: " + str(request.session.get("session_id")))
 
 
     else:
@@ -29,3 +29,5 @@ def deleteSession(request):
         return True
     except:
         return False
+
+# def createQuestion(que: str)

@@ -6,3 +6,5 @@ from .models import *
 admin.site.register(Session)
 admin.site.register(Question)
 admin.site.register(Option)
+
+

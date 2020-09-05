@@ -139,13 +139,14 @@
                     Generate Questions
                 </button>
                 {% for question in questions %}
+
                     <div class="quotes__list">
                         <blockquote >
-                            <p>{{ question.0 }}</p>
+                            <input type="checkbox" value="{{ question.0 }}" name="question{{ forloop.counter0 }}"/>
                             <p>Answer:&nbsp;{{ question.1 }}</p>
-                            <ul>
+                            <ul style="list-style-type: none">
                                 {% for option in question.2 %}
-                                    <li>{{ option }}</li>
+                                    <li><input value="{{ option }}" name="question{{ forloop.counter0 }}_option{{ forloop.counter0 }}"></li>
                                 {% endfor %}
                             </ul>
                         </blockquote>

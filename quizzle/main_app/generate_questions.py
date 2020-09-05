@@ -223,12 +223,5 @@ def get_questions(full_text: str):
     return ques
 
 
-full_text = "It is uncertain if time travel to the past is physically possible. Forward time travel, outside the usual sense of the " \
-            "perception of time, is an extensively observed phenomenon and well-understood within the framework of " \
-            "special relativity and general relativity. However, making one body advance or delay more than a few " \
-            "milliseconds compared to another body is not feasible with current technology. As for backward time " \
-            "travel, it is possible to find solutions in general relativity that allow for it, such as a rotating " \
-            "black hole. Traveling to an arbitrary point in spacetime has very limited support in theoretical " \
-            "physics, and is usually connected only with quantum mechanics or wormholes."
 
-print(get_questions(full_text))
+

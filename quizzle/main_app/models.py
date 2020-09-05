@@ -4,11 +4,10 @@ from django.db import models
 # Create your models here.
 
 class Session(models.Model):
-    session_id = models.IntegerField(blank=False, null=False, unique=True, primary_key=True)
     create_time = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.session_id
+        return str(self.id)
 
 
 class Question(models.Model):
@@ -17,7 +16,7 @@ class Question(models.Model):
     question = models.CharField(max_length=255, blank=False, null=False)
 
     def __str__(self):
-        return self.question
+        return str(self.question)
 
 
 class Option(models.Model):
@@ -25,4 +24,4 @@ class Option(models.Model):
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="question_link")
 
     def __str__(self):
-        return self.option_id
+        return str(self.option_id)

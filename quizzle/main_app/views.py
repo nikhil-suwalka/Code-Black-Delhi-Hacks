@@ -8,10 +8,10 @@ def home_view(request):
     if request.session.get("session_id", False):
         s = Session.objects.create()
         request.session["session_id"] = s.session_id
-        print(request.session.get("Session created: " + s))
+        print(request.session.get("Session created: " + str(s)))
 
-        return HttpResponse("You've newwwww: " +s)
+        return HttpResponse("You've newwwww: " +str(s))
     else:
         print(request.session.get("session_id"))
-        return HttpResponse("You've old: " + request.session.get("session_id"))
+        return render(request,'home.html',{})
 

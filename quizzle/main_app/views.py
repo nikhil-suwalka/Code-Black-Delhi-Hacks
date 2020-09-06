@@ -36,12 +36,31 @@ def home_view(request):
         elif request.POST.get("export_btn", False) == "":
             print("Export button")
             # print(getQuestionWithOptions(session_id), getQuestionWithAnswers(session_id))
-            # file = open("temp.txt", "w")
-            # file.write(str(getQuestionWithOptions(session_id)))
-            # file.close()
+
             response = HttpResponse(content_type='text/plain')
             response['Content-Disposition'] = 'attachment; filename=temp.txt'
-            response.write(str(getQuestionWithOptions(session_id)))
+
+            question_bank = getQuestionWithOptions(session_id)
+            result = ""
+            counter = 1
+            # questions with options
+            for question in question_bank:
+                result+=str(counter)+") "+question+"\n"
+                option_counter = 97
+                for o in question_bank[question]:
+                    result+=chr(option_counter)+") "+o+"\n"
+                    option_counter+=1
+                counter+=1
+                result+='\n'
+            # Answers
+            answer_bank = getQuestionWithAnswers(session_id)
+            counter = 1
+            result+="==========Answers==========\n"
+            for ans in answer_bank.values():
+                result+=str(counter)+") "+ans+"\n"
+                counter+=1
+
+            response.write(result)
             return response
 
             # return render(request, "home.html", context={"selected": request.POST.get("selectTextArea"),

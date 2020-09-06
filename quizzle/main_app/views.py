@@ -34,7 +34,7 @@ def home_view(request):
 
         elif request.POST.get("export_btn", False) == "":
             print("Export button")
-            # print(getQuestionWithOptions(session_id), getQuestionWithAnswers(session_id))
+            print(getQuestionWithOptions(session_id), getQuestionWithAnswers(session_id))
 
             response = HttpResponse(content_type='text/plain')
             response['Content-Disposition'] = 'attachment; filename=temp.txt'
@@ -151,9 +151,9 @@ def getQuestionWithAnswers(session_id: int):
         dict1[que.question] = que.answer
     return dict1
 
-#
-# from main_app import generate_questions
-#
-#
-# def get_questions_list(text: str) -> list:
-#     return generate_questions.get_questions(text)
+
+from main_app import generate_questions
+
+
+def get_questions_list(text: str) -> list:
+    return generate_questions.get_questions(text)

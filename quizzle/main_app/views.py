@@ -23,7 +23,6 @@ def home_view(request):
                     dict1[request.POST[i]] = []
                     lastque = i[8]
 
-
             i = 0
             for q in dict1:
                 que = createQuestion(que=q, ans=ans[i], session_id=session_id)
@@ -41,52 +40,60 @@ def home_view(request):
             response['Content-Disposition'] = 'attachment; filename=temp.txt'
 
             question_bank = getQuestionWithOptions(session_id)
-            result = ""
-            counter = 1
-            # questions with options
-            for question in question_bank:
-                result+=str(counter)+") "+question+"\n"
-                option_counter = 97
-                for o in question_bank[question]:
-                    result+=chr(option_counter)+") "+o+"\n"
-                    option_counter+=1
-                counter+=1
-                result+='\n'
-            # Answers
-            answer_bank = getQuestionWithAnswers(session_id)
-            counter = 1
-            result+="==========Answers==========\n"
-            for ans in answer_bank.values():
-                result+=str(counter)+") "+ans+"\n"
-                counter+=1
+            if len(question_bank) > 0:
+                result = ""
+                counter = 1
+                # questions with options
+                for question in question_bank:
+                    result += str(counter) + ") " + question + "\n"
+                    option_counter = 97
+                    for o in question_bank[question]:
+                        result += chr(option_counter) + ") " + o + "\n"
+                        option_counter += 1
+                    counter += 1
+                    result += '\n'
+                # Answers
+                answer_bank = getQuestionWithAnswers(session_id)
+                counter = 1
+                result += "==========Answers==========\n"
+                for ans in answer_bank.values():
+                    result += str(counter) + ") " + ans + "\n"
+                    counter += 1
 
-            response.write(result)
-            return response
+                response.write(result)
+                return response
+            else:
+                return render(request, "home.html", context={"selected": request.POST.get("selectTextArea"),
+                                                             "data": request.POST.get("mainTextArea")})
 
-            # return render(request, "home.html", context={"selected": request.POST.get("selectTextArea"),
-            #                                              "data": request.POST.get("mainTextArea")})
+        elif request.POST.get('new_session', False) == "":
+            Session.objects.filter(id=session_id).delete()
+            del request.session["session_id"]
+            s = Session.objects.create()
+            request.session["session_id"] = s.id
+            print("New session created again: ", s.id)
+            return render(request, "home.html", context={})
 
         else:
             string = request.POST.get("selectTextArea")
             data = request.POST.get("mainTextArea")
-            # questionList = get_questions_list(string)
-            questionList = [[
-                'The  _______  is a muscular, hollow organ in the gastrointestinal tract of humans and many other animals, including several invertebrates.',
-                'Stomach', ['Stomach', 'Intestine', 'Heart', 'Excretory Organ', 'Liver', 'Hindgut'],
-                ['Intestine', 'Liver', 'Respiratory Organ', 'Viscera']], [
-                'The stomach is a muscular, hollow  _______  in the gastrointestinal tract of humans and many other animals, including several invertebrates.',
-                'Organ', ['Organ', 'Ambulacrum', 'Adnexa', 'Abdomen', 'Apparatus', 'Ampulla'],
-                ['Ampulla', 'Apparatus', 'Area', 'Back', 'Buttock', 'Buttocks', 'Cannon', 'Dilator',
-                 'Dock', 'Dorsum', 'Energid', 'External Body Part', 'Feature', 'Flank', 'Fornix',
-                 'Gaskin', 'Groove', 'Haunch', 'Hindquarters', 'Hip', 'Horseback', 'Joint', 'Lobe',
-                 'Loin', 'Loins', 'Mentum', 'Partition', 'Process', 'Rectum', 'Rudiment', 'Saddle',
-                 'Shank', 'Shin', 'Shoulder', 'Small', 'Structure', 'Stump', 'System', 'Thorax',
-                 'Tissue', 'Toe', 'Torso', 'Underpart', 'Venter', 'Withers']], [
-                'The stomach is a muscular, hollow organ in the gastrointestinal tract of  _______  and many other animals, including several invertebrates.',
-                'Humans', ['Australopithecine', 'Pithecanthropus', 'Homo', 'Humans', 'Javanthropus',
-                           'Dryopithecine'],
-                ['Javanthropus', 'Pithecanthropus', 'Sinanthropus', 'Sivapithecus']]]
-            # questionList = []
+            questionList = get_questions_list(string)
+            # questionList = [[
+            #     'The  _______  is a muscular, hollow organ in the gastrointestinal tract of humans and many other animals, including several invertebrates.',
+            #     'Stomach', ['Stomach', 'Intestine', 'Heart', 'Excretory Organ', 'Liver', 'Hindgut'],
+            #     ['Intestine', 'Liver', 'Respiratory Organ', 'Viscera']], [
+            #     'The stomach is a muscular, hollow  _______  in the gastrointestinal tract of humans and many other animals, including several invertebrates.',
+            #     'Organ', ['Organ', 'Ambulacrum', 'Adnexa', 'Abdomen', 'Apparatus', 'Ampulla'],
+            #     ['Ampulla', 'Apparatus', 'Area', 'Back', 'Buttock', 'Buttocks', 'Cannon', 'Dilator',
+            #      'Dock', 'Dorsum', 'Energid', 'External Body Part', 'Feature', 'Flank', 'Fornix',
+            #      'Gaskin', 'Groove', 'Haunch', 'Hindquarters', 'Hip', 'Horseback', 'Joint', 'Lobe',
+            #      'Loin', 'Loins', 'Mentum', 'Partition', 'Process', 'Rectum', 'Rudiment', 'Saddle',
+            #      'Shank', 'Shin', 'Shoulder', 'Small', 'Structure', 'Stump', 'System', 'Thorax',
+            #      'Tissue', 'Toe', 'Torso', 'Underpart', 'Venter', 'Withers']], [
+            #     'The stomach is a muscular, hollow organ in the gastrointestinal tract of  _______  and many other animals, including several invertebrates.',
+            #     'Humans', ['Australopithecine', 'Pithecanthropus', 'Homo', 'Humans', 'Javanthropus',
+            #                'Dryopithecine'],
+            #     ['Javanthropus', 'Pithecanthropus', 'Sinanthropus', 'Sivapithecus']]]
             return render(request, "home.html", context={"questions": questionList, "selected": string, "data": data})
 
 
@@ -123,7 +130,7 @@ def createOption(option_text: str, question_id: int) -> None:
     o = Option.objects.create(question_id=Question.objects.filter(id=question_id).first(), option=option_text)
 
 
-def getQuestionWithOptions(session_id:int):
+def getQuestionWithOptions(session_id: int):
     dict1 = {}
     questions = Question.objects.filter(session_id=session_id)
 
@@ -136,16 +143,18 @@ def getQuestionWithOptions(session_id:int):
 
     return dict1
 
-def getQuestionWithAnswers(session_id:int):
+
+def getQuestionWithAnswers(session_id: int):
     dict1 = {}
     questions = Question.objects.filter(session_id=session_id)
 
     for que in questions:
         dict1[que.question] = que.answer
     return dict1
-#
-# from main_app import generate_questions
-#
-#
-# def get_questions_list(text: str) -> list:
-#     return generate_questions.get_questions(text)
+
+
+from main_app import generate_questions
+
+
+def get_questions_list(text: str) -> list:
+    return generate_questions.get_questions(text)

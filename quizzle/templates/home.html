@@ -118,11 +118,17 @@
     </div>
 </div>
 <form id="myform" method="post">
+    {% csrf_token %}
     <div style="margin-top: 20px; margin-left: 10px;">
         <div style="resize: none; display: inline;">
         <textarea class="textarea_main" name="mainTextArea" id="mainTextArea" style="border: 1px solid #BBB; color:#444"
                   rows="10"
                   cols="10">{% if data %}{{ data }}{% endif %}</textarea>
+             <button type="submit" class="btn" onclick="showLoading()"
+                        style="background: #ffa200; color: black;text-transform: uppercase; font-weight: bold;vertical-align: top; margin-bottom: 10px; margin-top: 10px;">
+                    Export
+             </button>
+
         </div>
         <div style="display: inline; margin-top: 0; margin-right: 10px;float: right" class="div_textarea">
             <div class="quotes" style="padding: 5px;overflow: auto;height: 40vw">
@@ -132,14 +138,11 @@
                       rows="10"
                       cols="10">{% if selected %}{{ selected }}{% endif %}</textarea>
 
-
-                {% csrf_token %}
                 <button type="submit" class="btn" onclick="showLoading()"
                         style="background: #ffa200; color: black;text-transform: uppercase; font-weight: bold; vertical-align: top; margin-bottom: 10px; float: right; margin-top: 10px">
                     Generate Questions
                 </button>
                 {% for question in questions %}
-
                     <div class="quotes__list">
                         <blockquote>
                             <label>
@@ -161,6 +164,13 @@
                         </blockquote>
                     </div>
                 {% endfor %}
+                {% if questions %}
+                <button type="submit" class="btn" onclick="showLoading()"
+                        style="background: #ffa200; color: black;text-transform: uppercase; font-weight: bold; vertical-align: top; margin-bottom: 10px; margin-top: 10px; margin-left: 9vw">
+                    Add Questions
+                </button>
+
+                {% endif %}
             </div>
 
         </div>

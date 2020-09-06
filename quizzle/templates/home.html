@@ -124,10 +124,10 @@
         <textarea class="textarea_main" name="mainTextArea" id="mainTextArea" style="border: 1px solid #BBB; color:#444"
                   rows="10"
                   cols="10">{% if data %}{{ data }}{% endif %}</textarea>
-             <button type="submit" class="btn" onclick="showLoading()"
-                        style="background: #ffa200; color: black;text-transform: uppercase; font-weight: bold;vertical-align: top; margin-bottom: 10px; margin-top: 10px;">
-                    Export
-             </button>
+            <button type="submit" class="btn" name="export_btn"
+                    style="background: #ffa200; color: black;text-transform: uppercase; font-weight: bold;vertical-align: top; margin-bottom: 10px; margin-top: 10px;">
+                Export
+            </button>
 
         </div>
         <div style="display: inline; margin-top: 0; margin-right: 10px;float: right" class="div_textarea">
@@ -146,7 +146,7 @@
                     <div class="quotes__list">
                         <blockquote>
                             <label>
-                                <input type="checkbox" value="" name="question{{ forloop.counter0 }}"/>
+                                <input type="checkbox" value="{{ question.0 }}" name="question{{ forloop.counter0 }}"/>
                                 {{ question.0 }}
                             </label>
                             <p>Answer:&nbsp;{{ question.1 }}</p>
@@ -154,8 +154,10 @@
                                 {% for option in question.2 %}
                                     <li>
                                         <label>
-                                            <input type="checkbox"
-                                                   name="question{{ forloop.counter0 }}_option{{ forloop.counter0 }}" {% if question.1 == option %} checked disabled {% endif %}>
+                                            <input type="checkbox" value="{{ option }}"
+                                                   name="question{{ forloop.parentloop.counter0 }}_option
+                                                           {{ forloop.counter0 }}{% if question.1 == option %}_ans{% endif %}"
+                                                    {% if question.1 == option %} checked {% endif %}>
                                             {{ option }}
                                         </label>
                                     </li>
@@ -165,10 +167,10 @@
                     </div>
                 {% endfor %}
                 {% if questions %}
-                <button type="submit" class="btn" onclick="showLoading()"
-                        style="background: #ffa200; color: black;text-transform: uppercase; font-weight: bold; vertical-align: top; margin-bottom: 10px; margin-top: 10px; margin-left: 9vw">
-                    Add Questions
-                </button>
+                    <button type="submit" class="btn" name="add_que"
+                            style="background: #ffa200; color: black;text-transform: uppercase; font-weight: bold; vertical-align: top; margin-bottom: 10px; margin-top: 10px; margin-left: 9vw">
+                        Add Questions
+                    </button>
 
                 {% endif %}
             </div>

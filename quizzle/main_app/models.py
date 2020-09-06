@@ -14,6 +14,7 @@ class Question(models.Model):
     # question_id = models.IntegerField(blank=False, null=False, unique=True, primary_key=True)
     session_id = models.ForeignKey(Session, on_delete=models.CASCADE, related_name="session_link")
     question = models.CharField(max_length=255, blank=False, null=False)
+    answer = models.CharField(max_length=255, blank=False, null=False)
 
     def __str__(self):
         return str(self.question)

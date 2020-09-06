@@ -77,25 +77,24 @@ def home_view(request):
         else:
             string = request.POST.get("selectTextArea")
             data = request.POST.get("mainTextArea")
-            questionList = get_questions_list(string)
-            # questionList = [[
-            #     'The  _______  is a muscular, hollow organ in the gastrointestinal tract of humans and many other animals, including several invertebrates.',
-            #     'Stomach', ['Stomach', 'Intestine', 'Heart', 'Excretory Organ', 'Liver', 'Hindgut'],
-            #     ['Intestine', 'Liver', 'Respiratory Organ', 'Viscera']], [
-            #     'The stomach is a muscular, hollow  _______  in the gastrointestinal tract of humans and many other animals, including several invertebrates.',
-            #     'Organ', ['Organ', 'Ambulacrum', 'Adnexa', 'Abdomen', 'Apparatus', 'Ampulla'],
-            #     ['Ampulla', 'Apparatus', 'Area', 'Back', 'Buttock', 'Buttocks', 'Cannon', 'Dilator',
-            #      'Dock', 'Dorsum', 'Energid', 'External Body Part', 'Feature', 'Flank', 'Fornix',
-            #      'Gaskin', 'Groove', 'Haunch', 'Hindquarters', 'Hip', 'Horseback', 'Joint', 'Lobe',
-            #      'Loin', 'Loins', 'Mentum', 'Partition', 'Process', 'Rectum', 'Rudiment', 'Saddle',
-            #      'Shank', 'Shin', 'Shoulder', 'Small', 'Structure', 'Stump', 'System', 'Thorax',
-            #      'Tissue', 'Toe', 'Torso', 'Underpart', 'Venter', 'Withers']], [
-            #     'The stomach is a muscular, hollow organ in the gastrointestinal tract of  _______  and many other animals, including several invertebrates.',
-            #     'Humans', ['Australopithecine', 'Pithecanthropus', 'Homo', 'Humans', 'Javanthropus',
-            #                'Dryopithecine'],
-            #     ['Javanthropus', 'Pithecanthropus', 'Sinanthropus', 'Sivapithecus']]]
+            # questionList = get_questions_list(string)
+            questionList = [[
+                'The  _______  is a muscular, hollow organ in the gastrointestinal tract of humans and many other animals, including several invertebrates.',
+                'Stomach', ['Stomach', 'Intestine', 'Heart', 'Excretory Organ', 'Liver', 'Hindgut'],
+                ['Intestine', 'Liver', 'Respiratory Organ', 'Viscera']], [
+                'The stomach is a muscular, hollow  _______  in the gastrointestinal tract of humans and many other animals, including several invertebrates.',
+                'Organ', ['Organ', 'Ambulacrum', 'Adnexa', 'Abdomen', 'Apparatus', 'Ampulla'],
+                ['Ampulla', 'Apparatus', 'Area', 'Back', 'Buttock', 'Buttocks', 'Cannon', 'Dilator',
+                 'Dock', 'Dorsum', 'Energid', 'External Body Part', 'Feature', 'Flank', 'Fornix',
+                 'Gaskin', 'Groove', 'Haunch', 'Hindquarters', 'Hip', 'Horseback', 'Joint', 'Lobe',
+                 'Loin', 'Loins', 'Mentum', 'Partition', 'Process', 'Rectum', 'Rudiment', 'Saddle',
+                 'Shank', 'Shin', 'Shoulder', 'Small', 'Structure', 'Stump', 'System', 'Thorax',
+                 'Tissue', 'Toe', 'Torso', 'Underpart', 'Venter', 'Withers']], [
+                'The stomach is a muscular, hollow organ in the gastrointestinal tract of  _______  and many other animals, including several invertebrates.',
+                'Humans', ['Australopithecine', 'Pithecanthropus', 'Homo', 'Humans', 'Javanthropus',
+                           'Dryopithecine'],
+                ['Javanthropus', 'Pithecanthropus', 'Sinanthropus', 'Sivapithecus']]]
             return render(request, "home.html", context={"questions": questionList, "selected": string, "data": data})
-
 
     else:
         if request.session.get("session_id", False):
@@ -152,9 +151,9 @@ def getQuestionWithAnswers(session_id: int):
         dict1[que.question] = que.answer
     return dict1
 
-
-from main_app import generate_questions
-
-
-def get_questions_list(text: str) -> list:
-    return generate_questions.get_questions(text)
+#
+# from main_app import generate_questions
+#
+#
+# def get_questions_list(text: str) -> list:
+#     return generate_questions.get_questions(text)

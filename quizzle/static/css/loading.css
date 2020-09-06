@@ -1,6 +1,6 @@
 #container {
-    width: 240px;
-    height: 240px;
+    width: 100px;
+    height: 100px;
     position: relative;
 }
 
@@ -90,14 +90,4 @@
     to {
         transform: rotate(360deg);
     }
-}
-#social {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    z-index: 6;
-}
-#social a {
-    min-height: 28px;
-    text-decoration: none;
 }
